@@ -13,7 +13,7 @@ def safe_function(fct, *args):
     Returns:
         If an error occurs - None.
         Otherwise - the result of the call to fct.
-         """
+    """
     try:
         result = fct(*args)
         return (result)
