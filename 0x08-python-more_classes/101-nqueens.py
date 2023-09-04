@@ -28,6 +28,8 @@ def get_solution(board):
                 solution.append([r, c])
                 break
     return (solution)
+
+
 def xout(board, row, col):
     """X spots on a chessboard.
     """
