@@ -1,17 +1,36 @@
 #!/usr/bin/python3
-"""  display all table in a state where name matched the arg """
+''' script for task 2
+    script should take 4 arguments: mysql username,
+    mysql password, database name and state name searched
+'''
+
 import MySQLdb
 import sys
 
 
-if __name__ == "__main__":
-    db = MySQLdb.connect(host="localhost", user=sys.argv[1],
-                         passwd=sys.argv[2], db=sys.argv[3], port=3306)
-    c = db.cursor()
-    c.execute("SELECT * FROM states WHERE name LIKE BINARY '{}'"
-                .format(sys.argv[4]))
-    rows = c.fetchall()
-    for row in rows:
-        print(row)
-    c.close()
+def list_with_name():
+    ''' displays all values in the states table in hbtn db where name
+        matches the argument passed to the script
+    '''
+    username = sys.argv[1]
+    password = sys.argv[2]
+    db_name = sys.argv[3]
+    state_name = sys.argv[4]
+    host = 'localhost'
+    port = 3306
+
+    db = MySQLdb.connect(host=host, user=username, passwd=password,
+                         db=db_name, port=port)
+    cur = db.cursor()
+    cur.execute(('SELECT * FROM states WHERE BINARY name = \'{}\'\
+                 ORDER BY id ASC;').format(state_name))
+    result = cur.fetchall()
+    cur.close()
     db.close()
+
+    if result:
+        for row in result:
+            print(row)
+
+if __name__ == '__main__':
+    list_with_name()
