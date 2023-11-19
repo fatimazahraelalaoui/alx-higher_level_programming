@@ -1,18 +1,14 @@
 #!/usr/bin/python3
-'''task 15 model script'''
+"""Script defines City class &  MySQLAlchemy ORM."""
 
-from sqlalchemy.orm import relationship
-from relationship_state import Base
-from sqlalchemy import Column, String, Integer, ForeignKey
-from sqlalchemy.orm import relationship
+from relationship_state import Base, State
+from sqlalchemy import Column, Integer, String, ForeignKey
 
 
 class City(Base):
-    '''City model for my db'''
+    """City class"""
     __tablename__ = 'cities'
-    id = Column(Integer, unique=True, nullable=False,
-                autoincrement=True, primary_key=True)
+
+    id = Column(Integer, primary_key=True)
     name = Column(String(128), nullable=False)
     state_id = Column(Integer, ForeignKey('states.id'), nullable=False)
-    state = relationship('State', back_populates='cities')
-~
